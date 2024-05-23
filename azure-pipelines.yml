@@ -60,7 +60,7 @@ stages:
       inputs:
         command: 'custom'
         custom: 'ef'
-        arguments: 'migrations script --idempotent --project $(Build.SourcesDirectory)\$(buildBackEnd)\Data\Data.csproj --context ApiDataContext --startup-project $(Build.SourcesDirectory)\$(buildBackEnd)\WebAPI\WebAPI.csproj --configuration $(buildBackEndConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildBackEnd)/todo-db-script.sql'
+        arguments: 'migrations script --idempotent --project $(Build.SourcesDirectory)\$(buildBackEnd)\$(buildBackEnd)\Capstone.web.api.csproj --context AppDbContext --startup-project $(Build.SourcesDirectory)\$(buildBackEnd)\$(buildBackEnd)\Capstone.web.api.csproj --configuration $(buildBackEndConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildBackEnd)/todo-db-script.sql'
       displayName: '1.1.5. Build: Generate Database Script'
 
     - task: PublishPipelineArtifact@1
