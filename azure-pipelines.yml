@@ -44,7 +44,7 @@ stages:
       inputs:
         command: 'build'
         projects: 'capstone.web.api.sln'
-        arguments: '--configuration Release'
+        arguments: '--configuration Release --verbosity detailed'
         workingDirectory: $(Build.SourcesDirectory)/capstone.web.api
       displayName: '1.1.1. Build: Build using Solution File'
 
