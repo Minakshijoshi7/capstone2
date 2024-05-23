@@ -43,9 +43,9 @@ stages:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: 'capstone.web.api'
+        projects: 'capstone.web.api.sln'
         arguments: '--configuration Release'
-#        workingDirectory: $(Build.SourcesDirectory)/capstone.web.api
+        workingDirectory: $(Build.SourcesDirectory)/capstone.web.api
       displayName: '1.1.1. Build: Build using Solution File'
 
     - task: DotNetCoreCLI@2
