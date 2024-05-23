@@ -6,7 +6,7 @@ using MyApiProject.Data;
 using System.Text;
 
 
-namespace Capstone.web.api
+namespace capstone.web.api
 {
     public class Program
     {

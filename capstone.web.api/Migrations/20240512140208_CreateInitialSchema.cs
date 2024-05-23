@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Capstone.web.api.Migrations
+namespace capstone.web.api.Migrations
 {
     /// <inheritdoc />
     public partial class CreateInitialSchema : Migration

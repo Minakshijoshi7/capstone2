@@ -1,6 +1,6 @@
 ﻿
 
-using Capstone.web.api;
+using capstone.web.api;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyApiProject.Data

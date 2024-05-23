@@ -1,5 +1,5 @@
 ﻿
-namespace Capstone.web.api
+namespace capstone.web.api
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;

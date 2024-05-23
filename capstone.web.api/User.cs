@@ -1,4 +1,4 @@
-﻿namespace Capstone.web.api
+﻿namespace capstone.web.api
 {
     public class User
     {

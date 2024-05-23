@@ -8,7 +8,7 @@ using MyApiProject.Data;
 
 #nullable disable
 
-namespace Capstone.web.api.Migrations
+namespace capstone.web.api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20240512140208_CreateInitialSchema")]
@@ -24,7 +24,7 @@ namespace Capstone.web.api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Capstone.web.api.User", b =>
+            modelBuilder.Entity("capstone.web.api.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
