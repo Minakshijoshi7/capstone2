@@ -69,7 +69,7 @@ stages:
 
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)/capstone.web.db/capstone.web.api.db.sql'
+        targetPath: '$(Build.ArtifactStagingDirectory)/capstone.web.api.db/capstone.web.api.db.sql'
         artifact: 'capstone.web.api.db'
         publishLocation: 'pipeline'
       displayName: '1.2.3. Publish: Publish Database Script as a Pipeline Artifact'
