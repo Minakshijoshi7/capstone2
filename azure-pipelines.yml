@@ -31,18 +31,20 @@ stages:
           echo "Structure of work folder of this pipeline:"
           tree $(Agent.WorkFolder)/1
 
-          echo "Build.ArtifactStagingDirectory:" 
+          echo "Build.ArtifactStagingDirectory:"
           echo "$(Build.ArtifactStagingDirectory)"
+          dir $(Build.ArtifactStagingDirectory)
 
-          echo "Build.BinariesDirectory:" 
+          echo "Build.BinariesDirectory:"
           echo "$(Build.BinariesDirectory)"
+          dir $(Build.BinariesDirectory)
 
           echo "Build.SourcesDirectory:"
           echo "$(Build.SourcesDirectory)"
-          echo "contents of $(Build.SourcesDirectory)"
           dir $(Build.SourcesDirectory)
-          echo "contents of $(Build.SourcesDirectory)/capstone.web.api"
-          dir $(Build.SourcesDirectory)/capstone.web.api
+
+          echo "contents of $(Build.SourcesDirectory)\capstone.web.api"
+          dir $(Build.SourcesDirectory)\capstone.web.api
 
     - task: DotNetCoreCLI@2
       inputs:
