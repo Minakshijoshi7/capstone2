@@ -39,12 +39,16 @@ stages:
 
           echo "Build.SourcesDirectory:"
           echo "$(Build.SourcesDirectory)"
+          echo "contents of $(Build.SourcesDirectory)"
+          dir $(Build.SourcesDirectory)
+          echo "contents of $(Build.SourcesDirectory)/capstone.web.api"
+          dir $(Build.SourcesDirectory)/capstone.web.api
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: 'capstone.web.api.sln'
-        arguments: '--configuration Release --verbosity detailed'
+        projects: '**/*.sln'
+        arguments: '--configuration Release'
         workingDirectory: $(Build.SourcesDirectory)/capstone.web.api
       displayName: '1.1.1. Build: Build using Solution File'
 
