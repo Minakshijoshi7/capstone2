@@ -16,8 +16,8 @@ pool:
 stages:
 - stage: 'build_capstone'
   displayName: '1. Build and publish capstone.web.api & capstone.web packages, and create and publish capstone.web.api.db script'
-  variables:
-    - group: build
+  # variables:
+  #   - group: build
 
   jobs:
   - job: 'build_capstone_web_api'
