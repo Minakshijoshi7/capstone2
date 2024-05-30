@@ -83,18 +83,15 @@ stages:
         version: '20.x'
       displayName: '1.3.1. Setup: Install Node.js'
 
-    - script: |
-        npm install --global @angular/cli
+    - script: npm install --global @angular/cli
       workingDirectory: $(Build.SourcesDirectory)/capstone.web
       displayName: '1.3.2. Setup: Install Angular'
 
-    - script: |
-        npm install
+    - script: npm install
       workingDirectory: $(Build.SourcesDirectory)/capstone.web
       displayName: '1.3.3. Setup: Install Packages'
 
-    - script: |
-        npm run ng build --configuration=production --optimization=true
+    - script: npm run ng build --configuration=production --optimization=true
       workingDirectory: $(Build.SourcesDirectory)/capstone.web
       displayName: '1.3.4. Build: Create Production Build'
 
@@ -148,7 +145,7 @@ stages:
               inputs:
                 azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                 appType: 'webApp'
-                appName: '$(deployBackEnd)'
+                appName: '$(deployWebApi)'
                 package: '$(Pipeline.Workspace)/capstone.web.api/*.zip'
                 deploymentMethod: 'auto'
               displayName: '2.1.3. Deploy: Deploy Azure Web App for Windows'
@@ -170,14 +167,14 @@ stages:
                 targetPath: '$(Pipeline.Workspace)/capstone.web.api.db'
               displayName: '2.2.1. Retrieve: Download capstone.web.api.db Pipeline Artifacts'
 
-            # - task: SqlAzureDacpacDeployment@1
-            #   inputs:
-            #     azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
-            #     AuthenticationType: 'connectionString'
-            #     ConnectionString: '$(deployDatabase)'
-            #     deployType: 'SqlTask'
-            #     SqlFile: '$(Pipeline.Workspace)/capstone.web.api.db/capstone.web.api.db.sql'
-            #   displayName: '2.2.2. Deploy: Update Database'
+            - task: SqlAzureDacpacDeployment@1
+              inputs:
+                azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
+                AuthenticationType: 'connectionString'
+                ConnectionString: '$(ConnectionStrings.DefaultConnection)'
+                deployType: 'SqlTask'
+                SqlFile: '$(Pipeline.Workspace)/capstone.web.api.db/capstone.web.api.db.sql'
+              displayName: '2.2.2. Deploy: Update Database'
 
     - deployment: deploy_test_capstone_web
       displayName: '2.3. Deploy capstone.web to Test'
@@ -226,7 +223,7 @@ stages:
               inputs:
                 azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                 appType: 'webAppLinux'
-                appName: '$(deployFrontEnd)'
+                appName: '$(deployWeb)'
                 package: '$(Pipeline.Workspace)/capstone.web/capstone.web.updated.zip' 
                 deploymentMethod: 'auto'
               displayName: '2.3.5. Deploy: Deploy Azure Web App for Linux'
@@ -267,7 +264,7 @@ stages:
               inputs:
                 azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                 appType: 'webApp'
-                appName: '$(deployBackEnd)'
+                appName: '$(deployWebApi)'
                 package: '$(Pipeline.Workspace)/capstone.web.api/*.zip'
                 deploymentMethod: 'auto'
               displayName: '3.1.3. Deploy: Deploy Azure Web App for Windows'
@@ -289,14 +286,14 @@ stages:
                 targetPath: '$(Pipeline.Workspace)/capstone.web.api.db'
               displayName: '3.2.1. Retrieve: Download capstone.web.api.db Pipeline Artifacts'
 
-            # - task: SqlAzureDacpacDeployment@1
-            #   inputs:
-            #     azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
-            #     AuthenticationType: 'connectionString'
-            #     ConnectionString: '$(ConnectionStrings)'
-            #     deployType: 'SqlTask'
-            #     SqlFile: '$(Pipeline.Workspace)/capstone.web.api.db/capstone.web.api.db.sql'
-            #   displayName: '3.2.2. Deploy: Update Database'
+            - task: SqlAzureDacpacDeployment@1
+              inputs:
+                azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
+                AuthenticationType: 'connectionString'
+                ConnectionString: '$(ConnectionStrings)'
+                deployType: 'SqlTask'
+                SqlFile: '$(Pipeline.Workspace)/capstone.web.api.db/capstone.web.api.db.sql'
+              displayName: '3.2.2. Deploy: Update Database'
 
     - deployment: deploy_prod_capstone_web
       displayName: '3.2. Deploy capstone.web to Prod'
@@ -345,7 +342,7 @@ stages:
                 inputs:
                   azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                   appType: 'webAppLinux'
-                  appName: '$(deployFrontEnd)'
+                  appName: '$(deployWeb)'
                   package: '$(Pipeline.Workspace)/capstone.web/capstone.web.updated.zip' 
                   deploymentMethod: 'auto'
                 displayName: '3.3.5. Deploy: Deploy Azure Web App for Linux'
