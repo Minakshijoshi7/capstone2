@@ -143,7 +143,7 @@ stages:
 
             - task: AzureWebApp@1
               inputs:
-                azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
+                azureSubscription: 'sc-capstone-2024-ss-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                 appType: 'webApp'
                 appName: '$(deployWebApi)'
                 package: '$(Pipeline.Workspace)/capstone.web.api/*.zip'
@@ -169,7 +169,7 @@ stages:
 
             - task: SqlAzureDacpacDeployment@1
               inputs:
-                azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
+                azureSubscription: 'sc-capstone-2024-ss-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                 AuthenticationType: 'connectionString'
                 ConnectionString: '$(ConnectionStrings.DefaultConnection)'
                 deployType: 'SqlTask'
@@ -221,7 +221,7 @@ stages:
 
             - task: AzureWebApp@1
               inputs:
-                azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
+                azureSubscription: 'sc-capstone-2024-ss-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                 appType: 'webAppLinux'
                 appName: '$(deployWeb)'
                 package: '$(Pipeline.Workspace)/capstone.web/capstone.web.updated.zip' 
@@ -262,7 +262,7 @@ stages:
 
             - task: AzureWebApp@1
               inputs:
-                azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
+                azureSubscription: 'sc-capstone-2024-ss-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                 appType: 'webApp'
                 appName: '$(deployWebApi)'
                 package: '$(Pipeline.Workspace)/capstone.web.api/*.zip'
@@ -288,7 +288,7 @@ stages:
 
             - task: SqlAzureDacpacDeployment@1
               inputs:
-                azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
+                azureSubscription: 'sc-capstone-2024-ss-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                 AuthenticationType: 'connectionString'
                 ConnectionString: '$(ConnectionStrings)'
                 deployType: 'SqlTask'
@@ -340,7 +340,7 @@ stages:
 
               - task: AzureWebApp@1
                 inputs:
-                  azureSubscription: 'Capstone-2024-SS-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
+                  azureSubscription: 'sc-capstone-2024-ss-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                   appType: 'webAppLinux'
                   appName: '$(deployWeb)'
                   package: '$(Pipeline.Workspace)/capstone.web/capstone.web.updated.zip' 
