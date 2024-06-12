@@ -169,7 +169,7 @@ stages:
 
             - task: SqlAzureDacpacDeployment@1
               inputs:
-                azureSubscription: 'sc-capstone-2024-ss-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
+                azureSubscription: 'sc-capstone-db' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                 AuthenticationType: 'connectionString'
                 ConnectionString: '$(ConnectionStrings.DefaultConnection)'
                 deployType: 'SqlTask'
@@ -288,7 +288,7 @@ stages:
 
             - task: SqlAzureDacpacDeployment@1
               inputs:
-                azureSubscription: 'sc-capstone-2024-ss-2' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
+                azureSubscription: 'sc-capstone-db' # Has to be a literal https://github.com/microsoft/azure-pipelines-tasks/issues/14365
                 AuthenticationType: 'connectionString'
                 ConnectionString: '$(ConnectionStrings)'
                 deployType: 'SqlTask'
