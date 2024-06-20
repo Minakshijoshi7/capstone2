@@ -27,6 +27,7 @@ namespace capstone.web.api
                 throw new InvalidOperationException("The secret key must be at least 16 bytes long.");
             }
 
+
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
