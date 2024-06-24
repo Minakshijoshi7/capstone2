@@ -1,11 +1,12 @@
 ﻿
 namespace capstone.web.api
 {
+    using capstone.web.api.Entities;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
-    using MyApiProject.Data;
+    //using MyApiProject.Data;
     using Microsoft.IdentityModel.Tokens;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
