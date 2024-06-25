@@ -1,6 +1,7 @@
 ﻿
 
 using Capstone.web.api;
+using Capstone.web.api.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyApiProject.Data
@@ -12,6 +13,8 @@ namespace MyApiProject.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public object Categories { get; internal set; }
     }
 }
 
