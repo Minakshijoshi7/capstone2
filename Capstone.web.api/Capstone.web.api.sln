@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capstone.web.api", "Capstone.web.api\Capstone.web.api.csproj", "{4708A3F4-A3A6-4844-A6A8-E4069204CF3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "capstone.web.api", "capstone.web.api.csproj", "{4708A3F4-A3A6-4844-A6A8-E4069204CF3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
