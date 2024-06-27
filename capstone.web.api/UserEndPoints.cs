@@ -32,6 +32,9 @@ namespace capstone.web.api
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+
+
+
         public static void MapUserEndpoints(this IEndpointRouteBuilder endpoints)
         {
             var secretKey = "%^@#HD*@HD2387d223wyfi@67823gfSDHIFEQIWUC387f@3fhR$#@@jfwWEHI";
@@ -47,13 +50,7 @@ namespace capstone.web.api
                 return user is not null ? Results.Ok(user) : Results.NotFound();
             });
 
-            endpoints.MapPost("/api/users", [Authorize(Policy = "AdministratorOnly")] async (User user, AppDbContext db) =>
-            {
-                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash); // Secure hashing
-                db.Users.Add(user);
-                await db.SaveChangesAsync();
-                return Results.Created($"/api/users/{user.Id}", user);
-            });
+            
 
             endpoints.MapPut("/api/users/{id}", [Authorize(Policy = "AdministratorOnly")] async (int id, User updateUser, AppDbContext db) =>
             {
@@ -71,6 +68,14 @@ namespace capstone.web.api
 
                 await db.SaveChangesAsync();
                 return Results.NoContent();
+            });
+
+            endpoints.MapPost("/api/users", [Authorize(Policy = "AdministratorOnly")] async (User user, AppDbContext db) =>
+            {
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash); // Secure hashing
+                db.Users.Add(user);
+                await db.SaveChangesAsync();
+                return Results.Created($"/api/users/{user.Id}", user);
             });
 
             endpoints.MapDelete("/api/users/{id}", [Authorize(Policy = "AdministratorOnly")] async (int id, AppDbContext db) =>

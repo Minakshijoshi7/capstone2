@@ -14,13 +14,15 @@ namespace capstone.web.api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            
 
             // Retrieve the secret key from configuration
             var secretKey = builder.Configuration["JwtConfig:Secret"];
             var keyBytes = Encoding.ASCII.GetBytes(secretKey);
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             if (keyBytes.Length < 16)
             {
@@ -45,16 +47,10 @@ namespace capstone.web.api
                 };
             });
 
-            // Add authorization
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("Administrator"));
-                options.AddPolicy("GeneralAndAbove", policy => policy.RequireRole("Administrator", "General"));
-                options.AddPolicy("ReadOnlyAndAbove", policy => policy.RequireRole("Administrator", "General", "ReadOnly"));
-            });
+            
 
-            builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer((builder.Configuration.GetConnectionString("DefaultConnection"))));
+
+
 
             // Enable authorization
             builder.Services.AddAuthorization();
@@ -74,6 +70,51 @@ namespace capstone.web.api
                 db.Database.Migrate();
                 SeedDatabase(db);
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // Add authorization
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("Administrator"));
+                options.AddPolicy("GeneralAndAbove", policy => policy.RequireRole("Administrator", "General"));
+                options.AddPolicy("ReadOnlyAndAbove", policy => policy.RequireRole("Administrator", "General", "ReadOnly"));
+            });
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer((builder.Configuration.GetConnectionString("DefaultConnection"))));
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -110,6 +151,9 @@ namespace capstone.web.api
             //        .ToArray();
             //    return forecast;
             //})
+
+
+
             //.WithName("GetWeatherForecast")
             //.WithOpenApi();
 
@@ -129,6 +173,10 @@ namespace capstone.web.api
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin-password"), // Securely hash passwords
                     Role = "Administrator"
                 });
+
+
+
+
 
                 context.Users.Add(new User
                 {
