@@ -1,10 +1,11 @@
-
+//using capstone.web.api.Endpoints;
+using capstone.web.api.Entities;
+using Capstone.web.api.Endpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MyApiProject.Data;
+using Microsoft.OpenApi.Models;
 using System.Text;
-
 
 namespace capstone.web.api
 {
@@ -14,9 +15,35 @@ namespace capstone.web.api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            // Add services to the container.
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Capstone API", Version = "v1" });
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\""
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
+            });
 
             // Retrieve the secret key from configuration
             var secretKey = builder.Configuration["JwtConfig:Secret"];
@@ -54,10 +81,8 @@ namespace capstone.web.api
             });
 
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer((builder.Configuration.GetConnectionString("DefaultConnection"))));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Enable authorization
-            builder.Services.AddAuthorization();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("OpenCorsPolicy", builder =>
@@ -82,51 +107,29 @@ namespace capstone.web.api
                 app.UseSwaggerUI();
             }
 
-            // Use CORS with the wide-open policy
             app.UseCors("OpenCorsPolicy");
-
             app.UseHttpsRedirection();
-
-            // Ensure authentication and authorization middleware are added
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.MapNoteEndpoints();
+            app.MapCategoryEndpoints();
             app.MapUserEndpoints();
-
-            //var summaries = new[]
-            //{
-            //    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-            //};
-
-            //app.MapGet("/weatherforecast", (HttpContext httpContext) =>
-            //{
-            //    var forecast = Enumerable.Range(1, 5).Select(index =>
-            //        new WeatherForecast
-            //        {
-            //            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            //            TemperatureC = Random.Shared.Next(-20, 55),
-            //            Summary = summaries[Random.Shared.Next(summaries.Length)]
-            //        })
-            //        .ToArray();
-            //    return forecast;
-            //})
-            //.WithName("GetWeatherForecast")
-            //.WithOpenApi();
 
             app.Run();
         }
+
         static void SeedDatabase(AppDbContext context)
         {
             if (!context.Users.Any())
             {
-                // Example seed users
                 context.Users.Add(new User
                 {
                     FirstName = "Admin",
                     LastName = "User",
                     Email = "admin@example.com",
                     Username = "admin",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin-password"), // Securely hash passwords
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin-password"),
                     Role = "Administrator"
                 });
 
@@ -141,6 +144,49 @@ namespace capstone.web.api
                 });
 
                 context.SaveChanges();
+            }
+
+            if (!context.Categories.Any())
+            {
+                var generalCategory = new Category
+                {
+                    Name = "General"
+                };
+
+                context.Categories.Add(generalCategory);
+                context.SaveChanges();
+
+                // Seed notes after category is created to avoid null reference
+                if (!context.Notes.Any())
+                {
+                    context.Notes.Add(new Note
+                    {
+                        Title = "Sample Note",
+                        Content = "This is a sample note.",
+                        CategoryId = generalCategory.Id
+                    });
+
+                    context.SaveChanges();
+                }
+            }
+            else
+            {
+                // Check if notes already exist
+                if (!context.Notes.Any())
+                {
+                    var category = context.Categories.FirstOrDefault();
+                    if (category != null)
+                    {
+                        context.Notes.Add(new Note
+                        {
+                            Title = "Sample Note",
+                            Content = "This is a sample note.",
+                            CategoryId = category.Id
+                        });
+
+                        context.SaveChanges();
+                    }
+                }
             }
         }
     }
