@@ -1,17 +1,17 @@
-﻿
+﻿using Microsoft.EntityFrameworkCore;
+using capstone.web.api.Entities;
 
-using capstone.web.api;
-using Microsoft.EntityFrameworkCore;
-
-namespace MyApiProject.Data
+namespace capstone.web.api
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
         {
         }
 
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }
-
