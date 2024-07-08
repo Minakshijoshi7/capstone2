@@ -7,12 +7,14 @@ import { AuthInterceptor } from './core/security/auth.interceptor';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
+import { HamburgerComponent } from './hamburger/hamburger.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    HamburgerComponent
   ],
   imports: [
     BrowserModule,
