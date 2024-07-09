@@ -1,0 +1,9 @@
+<div class="sidebar">
+    <button class="hamburger" (click)="toggleMenu()">
+      &#9776;
+    </button>
+    <div class="menu" [ngClass]="{'show': menuOpen}">
+        <a *ngFor="let category of categories" routerLink="/{{ category | lowercase }}">{{ category }}</a>
+        <a (click)="openAddCategoryDialog()">Add Category</a>
+    </div>
+  </div>
