@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace capstone.web.api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240512140208_CreateInitialSchema")]
-    partial class CreateInitialSchema
+    [Migration("20240618233407_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
