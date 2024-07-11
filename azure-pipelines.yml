@@ -4,11 +4,7 @@ trigger:
   branches:
     include:
       - master
-      - north
-      - south
-    exclude:
-      - north-*
-      - south-*
+      - release-candidate
 
 pool:
   vmImage: 'windows-latest' # Required for FileTransform@2 task
