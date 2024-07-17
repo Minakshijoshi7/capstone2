@@ -32,7 +32,6 @@
     <None Remove="Endpoints\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="Endpoints\" />
   </ItemGroup>
 </Project>
